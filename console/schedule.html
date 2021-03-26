@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Bot-Backstage</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+
+        body {
+            line-height: 1.5;
+            font-family: "微軟正黑體";
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        blockquote,
+        q {
+            quotes: none;
+        }
+
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .receivers {
+            text-align: center;
+        }
+
+        .send-messages {
+            text-align: center;
+        }
+
+
+        .radio_selector {
+            background-color: #e6f0f0;
+            margin-top: 2.5%;
+            margin-bottom: 3%;
+            margin-left: 9%;
+            height: 45px;
+            padding-top: 1.5%;
+            /* margin-right: 50%; */
+            /* margin: 0px auto; */
+            text-align: center;
+            width: 80%;
+        }
+
+        #add_more {
+            font-size: 10px;
+        }
+
+        #checkboxes {
+            display: none;
+            border: 1px #dadada solid;
+        }
+
+        #checkboxes label {
+            display: block
+        }
+
+        #checkboxes label:hover {
+            background-color: #15a1a1;
+        }
+
+        #checkboxes_group {
+            display: none;
+            border: 1px #dadada solid;
+        }
+
+        #checkboxes_group label {
+            display: block
+        }
+
+        #checkboxes_group label:hover {
+            background-color: #15a1a1;
+        }
+
+        .table {
+            text-align: center;
+        }
+
+        table>thead>tr>th {
+            text-align: center;
+            background-color: transparent;
+        }
+
+        .nav-tabs>li>a {
+            background-color: #eee;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .container2 {
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 15px;
+            margin-top: 60px;
+        }
+
+        .number {
+            text-align: right;
+        }
+
+        .table-bordered>tbody>tr>td.border-bottom-hide {
+            border-right: 5px solid #ddd;
+        }
+
+        .table>thead:first-child>tr:first-child>th.border-bottom-hide {
+            border-right: 5px solid #ddd;
+        }
+
+        /* fixed setting */
+
+        .name_column {
+            position: fixed;
+            width: 80px;
+            height: 40px;
+            padding-top: 12px;
+            padding-left: 24px;
+            background-color: linen;
+        }
+
+        .fixedTable .table {
+            background-color: transparent;
+            margin-bottom: 0px;
+            margin-top: -18px;
+        }
+
+        .fixedTable .table tr td {
+            min-height: 20px;
+            height: 40px;
+            vertical-align: middle;
+            max-width: 150px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            min-width: 35px;
+        }
+
+        .fixedTable-header {
+            height: 40px;
+            overflow: hidden;
+            /*border-bottom: 1px solid #CCC;*/
+        }
+
+        .fixedTable-sidebar {
+            /*width: 100px;*/
+            height: 500px;
+            float: left;
+            overflow: hidden;
+            /*border-right: 1px solid #CCC;*/
+        }
+
+        .fixedTable {
+            padding-top: 60px;
+            background-color: #B31217;
+        }
+
+        .fixedTable .fixedTable-sidebar tr td {
+            min-width: 80px;
+        }
+
+        .fixedTable .fixedTable-sidebar .table {
+            min-width: 80px;
+            background-color: linen;
+        }
+
+        .fixedTable-body {
+            overflow: auto;
+            max-height: 500px;
+        }
+
+        .fix-header {
+            position: absolute;
+
+            background: #B31217;
+            color: white;
+            padding: 8px;
+            height: 60px;
+            margin-top: -51px;
+            margin-left: -9px;
+            line-height: normal;
+            border-left: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mb {
+            display: none;
+        }
+
+        /* fixed setting end */
+        /* th {
+            height: 0;
+            line-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            color: lightgoldenrodyellow;
+            border: none;
+            white-space: nowrap;
+        }
+
+        table tbody {
+            background-color: white;
+        } */
+
+        .header-section {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100px;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+        }
+
+        .logo-section {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 70px;
+            width: 50%;
+        }
+
+        .logo {
+            width: 60px;
+            height: 36px;
+            background-size: cover;
+            background-image: url('./image/icn_km_logo.e9b3640.png');
+        }
+
+        .logo-title {
+            margin-left: 5px;
+            font-size: 24px;
+            color: #e52d27;
+            font-weight: 700;
+        }
+
+        .name-section {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 70px;
+            width: 50%;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .isCount {
+            color: #B31217;
+            font-weight: 700;
+        }
+
+        .text-align-right {
+            text-align: right;
+        }
+
+        .warning {
+            display: block;
+            color: #B31217;
+            font-size: 12px;
+            position: absolute;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            margin-right: 15px;
+        }
+
+        .summary {
+            width: 100%;
+            color: #B31217;
+            font-size: 16px;
+            padding: 20px 0px;
+            text-align: right;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .fixedTable .table tr td {
+                min-width: 65px;
+            }
+
+            .logo-section {
+                padding-left: 20px;
+            }
+
+            .containerr {
+                width: fit-content;
+            }
+
+            .mb {
+                display: table-cell;
+            }
+
+            .pc {
+                display: none;
+            }
+
+            .fix-header {
+                margin-left: -10px;
+                padding: 4px;
+            }
+
+            .fixedTable {
+                width: fit-content;
+            }
+
+            .fixedTable .table {
+                margin-top: -18px;
+            }
+
+            .fixedTable-body {
+                max-height: 80vh;
+            }
+
+            .warning {
+                padding-left: 15px;
+                position: relative;
+                width: fit-content;
+            }
+        }
+
+        @media screen and (min-width: 686px) {
+            .containerr {
+                width: auto;
+            }
+
+            .fixedTable {
+                width: auto;
+            }
+        }
+
+        @media screen and (orientation: landscape) {
+            .containerr {
+                width: max-content;
+            }
+
+            .fixedTable {
+                width: max-content;
+            }
+        }
+
+        @media screen and (min-width: 658px) and (orientation: landscape) {
+            .containerr {
+                width: auto;
+            }
+
+            .fixedTable {
+                width: auto;
+            }
+        }
+
+        .body-section {
+            display: flex;
+            padding-bottom: 2%;
+        }
+
+        .name-list-section {
+            /* display: flex; */
+            justify-content: flex-start;
+            /* align-items: center; */
+            width: 50%;
+        }
+
+        .message_section {
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: center;
+            width: 50%;
+        }
+
+        .time_section {
+            font-size: 10px;
+            margin-top: 2%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text_section {
+            margin-top: 3%;
+            display: none;
+            justify-content: flex-start;
+            align-items: center;
+            width: 80%;
+        }
+
+        .image_section {
+            margin-top: 3%;
+            display: none;
+            justify-content: flex-start;
+            align-items: center;
+            width: 80%;
+        }
+
+        .image_uri_section {
+            margin-top: 3%;
+            display: none;
+            /* justify-content: flex-start; */
+            align-items: center;
+            width: 80%;
+
+        }
+
+        .image_uri_imagemap_section {
+            margin-top: 3%;
+            display: none;
+            /* justify-content: flex-start; */
+            align-items: center;
+            width: 80%;
+
+        }
+
+        .feedback_section {
+            margin-top: 3%;
+            display: none;
+            /* justify-content: flex-start; */
+            align-items: center;
+            width: 80%;
+
+        }
+
+        .image_uri_type1 {
+            display: none;
+            width: 100%;
+        }
+
+        #image_appearance_uri_type1 {
+            width: 100%;
+        }
+
+        #image_info_uri_type1 {
+            width: 100%;
+        }
+
+        .image_uri_type2 {
+            width: 100%;
+            display: none;
+        }
+
+        #image_appearance_uri_type2_upper {
+            width: 100%;
+        }
+
+        #image_info_uri_type2_upper {
+            width: 100%;
+        }
+
+        #image_appearance_uri_type2_lower {
+            width: 100%;
+        }
+
+        #image_info_uri_type2_lower {
+            width: 100%;
+        }
+
+        #image_appearance_uri_type3_upper {
+            width: 100%;
+        }
+
+        #image_info_uri_type3_upper {
+            width: 100%;
+        }
+
+        #image_appearance_uri_type3_lower_left {
+            width: 100%;
+        }
+
+        #image_info_uri_type3_lower_left {
+            width: 100%;
+        }
+
+        #image_appearance_uri_type3_lower_right {
+            width: 100%;
+        }
+
+        #image_info_uri_type3_lower_right {
+            width: 100%;
+        }
+
+        .image_uri_type3 {
+            width: 100%;
+            display: none;
+        }
+
+        .image_uri_type4 {
+            width: 100%;
+            display: none;
+        }
+
+        .image_uri_type5 {
+            width: 100%;
+            display: none;
+        }
+
+        .image_uri_type6 {
+            width: 100%;
+            display: none;
+        }
+
+        .image_uri_type7 {
+            width: 100%;
+            display: none;
+        }
+
+        .image_uri_type8 {
+            width: 100%;
+            display: none;
+        }
+
+        .image_uri_type9 {
+            width: 100%;
+            display: none;
+        }
+
+        #image_appearance_uri_imagemap {
+            width: 100%;
+        }
+
+        .img_uri_position1 {
+            width: 100%;
+            display: none;
+        }
+
+        .img_uri_position2 {
+            width: 100%;
+            display: none;
+        }
+
+        .img_uri_position3 {
+            width: 100%;
+            display: none;
+        }
+
+        #image_uri_position_link_1 {
+            width: 100%;
+        }
+
+        #image_uri_position_link_2_1 {
+            width: 100%;
+        }
+
+        #image_uri_position_link_2_2 {
+            width: 100%;
+        }
+
+        #image_uri_position_link_3_1 {
+            width: 100%;
+        }
+
+        #image_uri_position_link_3_2 {
+            width: 100%;
+        }
+
+        #image_uri_position_link_3_3 {
+            width: 100%;
+        }
+
+        .submit-section {
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .message {
+            width: 100%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+
+        .s_all {
+            display: none;
+        }
+
+        .s_group {
+            display: none;
+            margin-left: 30%;
+        }
+
+        .s_bg_group {
+            display: none;
+            margin-left: 50%;
+            border: 2px solid #ccc;
+            margin-left: 9%;
+            padding: 1%;
+            height: 210px;
+            /* overflow-y: scroll; */
+            width: 80%;
+        }
+
+        .container {
+            border: 2px solid #ccc;
+            margin-left: 25%;
+            height: 200px;
+            overflow-y: scroll;
+            display: none;
+            width: 50%;
+        }
+
+        .container_group {
+            border: 2px solid #ccc;
+            width: 80%;
+            height: 150px;
+            overflow-y: scroll;
+            margin-left: 0px;
+        }
+
+        .DateSelectBox {
+            float: left;
+        }
+
+        .menu {
+            margin-top: 2%;
+        }
+
+        .menu li {
+            float: left;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .menu li a {
+            display: block;
+            width: 150px;
+            background: #566270;
+            color: #fffff5;
+            text-align: center;
+            text-decoration: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .menu li a:hover {
+            background: #E0E3DA;
+            color: #566270;
+        }
+
+        #schedule_confirm {
+            margin-left: 3%;
+        }
+
+        .s_group_list {
+            float: left;
+
+        }
+
+        .s_group_button {
+            font-size: 15px;
+            float: left;
+            margin-left: 10%;
+        }
+
+        #send_button {
+            width: 120px;
+            height: 40px;
+            background-color: #fbd14b;
+            font-weight: bold;
+        }
+
+        #send_button:hover {
+
+            background-color: #feee7d;
+
+        }
+
+        #schedule {
+            width: 120px;
+            height: 40px;
+            background-color: #cb7575;
+            color: #fffff5;
+            font-weight: bold;
+        }
+
+        #schedule:hover {
+
+            background-color: #ef9e9f;
+
+        }
+
+        .schedule-messages {
+            text-align: center;
+        }
+
+        .schedule-menu li {
+            float: left;
+            /* text-align: center; */
+            /* margin-top: 5px;*/
+            /* margin-left: 5px; */
+            /* border-width: 1px;
+            border-style: solid; */
+            /* align-content: center; */
+            margin-left: 10%;
+            margin-right: 10%;
+            /* padding-left: 20%; */
+        }
+
+        .schedule-menu li a {
+            /* display: block; */
+            /* width: 200px; */
+            /* background: #566270; */
+            color: #534847;
+            /* text-align: center; */
+            text-decoration: none;
+            /* padding-top: 10px;
+            padding-bottom: 10px; */
+            /* font-weight: bold; */
+        }
+
+        .schedule-menu li a:hover {
+            /* background: #E0E3DA; */
+            color: #D09E88;
+        }
+
+        .schedule-menu {
+            padding-top: 5%;
+        }
+
+        .schedule_section {
+            width: 125px;
+            height: 300px;
+            background: #FADAD8;
+            margin-top: 3%;
+            font-size: 10px;
+        }
+
+        #schedule_list_table {
+            /* align: center; */
+            width: 80%;
+            margin-left: 10%;
+            /* cellspacing: 5;
+            cellpadding: 6; */
+        }
+
+        #schedule_head {
+            border-bottom: 1px;
+            border-style: solid;
+            border-color: #534847;
+            align-content: center;
+        }
+
+
+        #schedule_list_table tr th {
+            text-align: center;
+        }
+
+        #schedule_list_table tr td {
+            text-align: center;
+            width: 240px;
+            font-size: 10px;
+            border-bottom: 0.5px;
+            border-style: solid;
+            border-color: #d9e1e8;
+        }
+
+        /* #text-schedule {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        } */
+
+        .s_bg_group p {
+            float: left;
+            font-size: 10px;
+            width: 50%;
+            color: #969696;
+        }
+
+        .s_bg_group_list {
+            float: left;
+            width: 50%;
+            overflow-y: scroll;
+            height: 170px;
+            padding: 2%;
+            font-size: 15px;
+            margin-top: 1%;
+        }
+
+        .s_title_list {
+            float: left;
+            width: 50%;
+            overflow-y: scroll;
+            height: 170px;
+            padding: 2%;
+            font-size: 15px;
+            margin-top: 1%;
+        }
+
+        .s_title_group_list p {
+            font-size: 10px;
+        }
+
+        #set_message {
+            color: #cb7575;
+            width: 90px;
+            font-size: 18px;
+            font-style: bold;
+            background: #ffffff;
+            text-align: center;
+            margin-bottom: 5%;
+            margin-top: 5%;
+        }
+
+        #set_schedule {
+            color: #cb7575;
+            width: 90px;
+            font-size: 18px;
+            font-style: bold;
+            background: #ffffff;
+            text-align: center;
+            margin-bottom: 10%;
+        }
+
+        #bglist {
+            color: #566270;
+            font-style: bold;
+        }
+
+        #grouplist {
+            color: #566270;
+            font-style: bold;
+        }
+
+        #sendinglist {
+            color: #566270;
+            font-style: bold;
+        }
+
+        #bglist_form_table_head {
+            border-bottom: 1px;
+            border-style: solid;
+            border-color: #534847;
+            align-content: center;
+        }
+
+        #bglist_form_table tr th {
+            text-align: center;
+        }
+
+        #bglist_form_table tr td {
+            text-align: center;
+            width: 200px;
+            font-size: 10px;
+            border-bottom: 0.5px;
+            border-style: solid;
+            border-color: #d9e1e8;
+        }
+
+        #grouplist_form_table_head {
+            border-bottom: 1px;
+            border-style: solid;
+            border-color: #534847;
+            align-content: center;
+        }
+
+        #grouplist_form_table tr th {
+            text-align: center;
+        }
+
+        #grouplist_form_table tr td {
+            text-align: center;
+            width: 500px;
+            font-size: 10px;
+            border-bottom: 0.5px;
+            border-style: solid;
+            border-color: #d9e1e8;
+        }
+
+        #schedule_cancel_btn {
+            font-size: 5px;
+            float: right;
+            margin-left: 10%;
+        }
+
+        .image_uri_type1 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type2 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type3 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type4 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type5 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type6 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type7 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type8 p {
+            font-size: 12px;
+        }
+
+        .image_uri_type9 p {
+            font-size: 12px;
+        }
+
+        .img_uri_position1 p {
+            font-size: 12px;
+        }
+
+        .img_uri_position2 p {
+            font-size: 12px;
+        }
+
+        .img_uri_position3 p {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containerr">
+        <div class="header-section">
+            <div class="logo-section">
+                <div class="logo"></div>
+                <div class="logo-title">Bot 後台管理</div>
+            </div>
+            <div class="name-section">
+                <div>Hi，</div>
+                <div id=login-user></div>
+            </div>
+            <div class="logout-section">
+                <div><a href="https://bot-backstage.jane.app/logout" class="logout">登出</a></div>
+            </div>
+        </div>
+        <div class="container2">
+            <div class="body-section">
+                <div class="schedule_section">
+                    <ul class="schedule-menu">
+                        <li id='set_message'><a class='set_message' type="button">立即傳送</a></li>
+                        <li id='set_schedule'><a class='set_schedule' type="button">設定排程</a>
+                        </li>
+                        <!-- <li><a class='schedule_list_btn' id='schedule_list_btn'>排程列表</a></li> -->
+
+                        <li id='bglist'><a class='bglist'>公司群組名單</a></li>
+                        <li id='grouplist'><a class='grouplist'>自訂群組名單</a></li>
+                        <li id='sendinglist'><a class='sendinglist'>發送紀錄</a></li>
+                    </ul>
+                </div>
+                <div class="name-list-section">
+                    <p class='receivers'> 收件者 </p>
+                    <div class="radio_selector">
+                        <input type="radio" name="select" value="select_all" id="select_all">全部的人
+                        <input type="radio" name="select" value="bg_group" id="bg_group">公司群組
+                        <input type="radio" name="select" value="select_group" id="select_group">自訂群組
+                        <input type="radio" name="select" value="select_ind" id="select_ind">某個人
+                    </div>
+
+
+                    <!-- 全選畫面 -->
+                    <div name="s_all" class="s_all" id="s_all"><label><input type="checkbox" name="CheckAll"
+                                id="CheckAll" value=1 />全部的人</label></div>
+
+                    <!-- 收件者 -->
+                    <div class="container" id="receivers">
+                        <div>
+                            <input id="myInput" type="text" placeholder="Search..">
+                        </div>
+                        <div class="container_receivers" id="receivers_ind"></div>
+
+                    </div>
+
+                    <!-- 新增群組 -->
+                    <div id="s_group" class="s_group" name="s_group">
+                        <div id="s_group_list" class='s_group_list' name='s_group_list'></div>
+                        <div id="s_group_button" class="s_group_button" name="s_group_button">
+                            <button id="create-group" type="button">新增群組</button>
+                            <!-- <button id="delete-group" type="button">刪除群組</button> -->
+                            <button id="delete" type="button">刪除群組</button>
+                        </div>
+                    </div>
+                    <!-- 公司群組 -->
+                    <div id="s_bg_group" class="s_bg_group" name="s_bg_group">
+                        <div>
+                            <p> 請選擇分行</p>
+                            <p> 請選擇職稱</p>
+                        </div>
+                        <div id="s_bg_list" class='s_bg_list' name='s_bg_list'>
+                            <div id="s_bg_group_list" class='s_bg_group_list' name='s_bg_group_list'>
+                                <div><label><input type='checkbox' name='bg_all' class='chk' value='bg_all'
+                                            id='bg_all'><span>全選</span></label></div>
+                            </div>
+                        </div>
+                        <div id="s_title_group_list" class='s_title_group_list' name='s_title_group_list'>
+                            <div id="s_title_list" class="s_title_list" name="s_title_list">
+                                <div><label><input type='checkbox' name='title_all' class='chk' value='title_all'
+                                            id='title_all'><span>全選</span></label></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="message_section">
+                    <p class='send-messages'>傳送訊息</p>
+                    <div class="message-selecter">
+                        <ul class="menu">
+                            <li><a class='send-text' id='send-text' type='button'>文字</a></li>
+                            <li><a class='send-img' id='send-img' type='button'>圖片</a></li>
+                            <li><a class='send-img-uri_flex' id='send-img-uri_flex' type='button'>基本圖文選單</a></li>
+                            <li><a class='send-img-uri_imagemap' id='send-img-uri_imagemap' type='button'>進階圖文選單</a>
+                            </li>
+                            <li><a class='feedback' id='feedback' type='button'>回饋按鈕</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="text_section" id='text_section' name='text_section'>
+                        <!-- 留言 -->
+                        <div>
+                            <!-- <span>想說的話</span> -->
+                            <div>
+                                <textarea name="content" id="content" class="message"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="image_section" id="image_section" name="image_section">
+                        <!-- 圖片 -->
+                        <div>
+                            <p style="color:rgb(170, 172, 171);font-size:5px" ;> (jpg/png 格式，單一圖檔小於 1000 KB) </p>
+                            <div id="item_image">
+                                <div id="filediv"><input name="file[]" type="file" id="file"
+                                        accept="image/jpg,image/png" /></div>
+                                <input type="button" id="add_more" class="upload" value="新增更多圖片" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image_uri_section" id='image_uri_section' name='image_uri_section'>
+                        <!-- 圖文選單1 -->
+                        <div>
+                            <div class='img_uri_selector'>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type1"
+                                    id="img_uri_type1">版型一<img
+                                    src="https://scdn.line-apps.com/n/line_official_v2/img/MdFRM/type_1_thumb.png"
+                                    width='50px'>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type2"
+                                    id="img_uri_type2">版型二<img src="https://i.imgur.com/5l7vkVt.png" width='50px'>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type3"
+                                    id="img_uri_type3">版型三<img src="https://i.imgur.com/RxGbWuA.png" width='50px'>
+                                <br></br>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type4"
+                                    id="img_uri_type4">版型四<img src="https://i.imgur.com/ZLS34z6.png" width='50px'>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type5"
+                                    id="img_uri_type5">版型五<img src="https://i.imgur.com/COpTbhm.png" width='50px'>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type6"
+                                    id="img_uri_type6">版型六<img src="https://i.imgur.com/6bty98g.png" width='50px'>
+                                <br></br>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type7"
+                                    id="img_uri_type7">版型七<img src="https://i.imgur.com/LH5lWy8.png" width='50px'>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type8"
+                                    id="img_uri_type8">版型八<img src="https://i.imgur.com/dHAew9u.png" width='50px'>
+                                <input type="radio" name="select_img_uri_types" value="img_uri_type9"
+                                    id="img_uri_type9">版型九<img src="https://i.imgur.com/9b4gdXD.png" width='50px'>
+                                <br></br>
+                            </div>
+
+                            <div class='image_uri_type1' id='image_uri_type1'>
+                                <br></br>
+                                <p>圖片比例</p>
+                                <input type="radio" name="select_img_type" value="1:1" id="select_img_type_1_1">1:1
+                                <input type="radio" name="select_img_type" value="1:2" id="select_img_type_1_2">1:2
+                                <input type="radio" name="select_img_type" value="1:3" id="select_img_type_1_3">1:3
+                                <input type="radio" name="select_img_type" value="4:3" id="select_img_type_4_3">4:3
+                                <input type="radio" name="select_img_type" value="3:4" id="select_img_type_3_4">3:4
+                                <input type="radio" name="select_img_type" value="20:13"
+                                    id="select_img_type_20_13">20:13
+                                <input type="radio" name="select_img_type" value="9:16" id="select_img_type_9_16">9:16
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type1" id="image_appearance_uri_type1"
+                                    accept="image/jpg,image/png">
+                                <p>圖片連結</p><input type="text" name="image_info_uri_type1" id="image_info_uri_type1">
+                            </div>
+                            <div class='image_uri_type2' id='image_uri_type2'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type2" id="image_appearance_uri_type2"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type2"
+                                    id="image_info_uri_type2_upper">
+                                <p>B連結</p><input type="text" name="image_info_uri_type2"
+                                    id="image_info_uri_type2_lower">
+                            </div>
+                            <div class='image_uri_type3' id='image_uri_type3'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type3" id="image_appearance_uri_type3"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type3"
+                                    id="image_info_uri_type3_upper">
+                                <p>B連結</p><input type="text" name="image_info_uri_type3"
+                                    id="image_info_uri_type3_lower_left">
+                                <p>C連結</p><input type="text" name="image_info_uri_type3"
+                                    id="image_info_uri_type3_lower_right">
+                            </div>
+                            <div class='image_uri_type4' id='image_uri_type4'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type4" id="image_appearance_uri_type4"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type4"
+                                    id="image_info_uri_type4_upper_left">
+                                <p>B連結</p><input type="text" name="image_info_uri_type4"
+                                    id="image_info_uri_type4_upper_right">
+                                <p>C連結</p><input type="text" name="image_info_uri_type4"
+                                    id="image_info_uri_type4_lower_left">
+                                <p>D連結</p><input type="text" name="image_info_uri_type4"
+                                    id="image_info_uri_type4_lower_right">
+                            </div>
+                            <div class='image_uri_type5' id='image_uri_type5'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type5" id="image_appearance_uri_type5"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type5" id="image_info_uri_type5_left">
+                                <p>B連結</p><input type="text" name="image_info_uri_type5"
+                                    id="image_info_uri_type5_right">
+                            </div>
+                            <div class='image_uri_type6' id='image_uri_type6'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type6" id="image_appearance_uri_type6"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type6" id="image_info_uri_type6_1">
+                                <p>B連結</p><input type="text" name="image_info_uri_type6" id="image_info_uri_type6_2">
+                                <p>C連結</p><input type="text" name="image_info_uri_type6" id="image_info_uri_type6_3">
+                            </div>
+                            <div class='image_uri_type7' id='image_uri_type7'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type7" id="image_appearance_uri_type7"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type7" id="image_info_uri_type7_1">
+                            </div>
+                            <div class='image_uri_type8' id='image_uri_type8'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type8" id="image_appearance_uri_type8"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type8" id="image_info_uri_type8_1">
+                                <p>B連結</p><input type="text" name="image_info_uri_type8" id="image_info_uri_type8_2">
+                                <p>C連結</p><input type="text" name="image_info_uri_type8" id="image_info_uri_type8_3">
+                                <p>D連結</p><input type="text" name="image_info_uri_type8" id="image_info_uri_type8_4">
+                                <p>E連結</p><input type="text" name="image_info_uri_type8" id="image_info_uri_type8_5">
+                                <p>F連結</p><input type="text" name="image_info_uri_type8" id="image_info_uri_type8_6">
+                            </div>
+                            <div class='image_uri_type9' id='image_uri_type9'>
+                                <br></br>
+                                <p>圖片</p>
+                                <input type="file" name="image_appearance_uri_type9" id="image_appearance_uri_type9"
+                                    accept="image/jpg,image/png">
+                                <p>A連結</p><input type="text" name="image_info_uri_type9" id="image_info_uri_type9_1">
+                                <p>B連結</p><input type="text" name="image_info_uri_type9" id="image_info_uri_type9_2">
+                                <p>C連結</p><input type="text" name="image_info_uri_type9" id="image_info_uri_type9_3">
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                    <div class="image_uri_imagemap_section" id='image_uri_imagemap_section'
+                        name='image_uri_imagemap_section'>
+                        <!-- 圖文選單2 -->
+                        <img src="https://i.imgur.com/JybeWxd.jpg" width=30%>
+                        <br></br>
+                        <p>圖片</p>
+                        <input type="file" name="image_appearance_uri_imagemap" id="image_appearance_uri_imagemap"
+                            accept="image/jpg,image/png">
+                        <div class='img_uri_imagemap_position_selector'>
+                            <input type="radio" name="select_img_uri_positions" value="img_uri_position1"
+                                id="img_uri_position1">一個連結
+                            <input type="radio" name="select_img_uri_positions" value="img_uri_position2"
+                                id="img_uri_position2">二個連結
+                            <input type="radio" name="select_img_uri_positions" value="img_uri_position3"
+                                id="img_uri_position3">三個連結
+                        </div>
+                        <div class='img_uri_position1' id='img_uri_position1'>
+                            <br></br>
+                            <p>連結</p><input type="text" name="image_uri_position_link" id="image_uri_position_link_1">
+                            <p>X</p>
+                            <input type="text" name="image_uri_position_X" id="image_uri_position_X_1">
+                            <p>Y</p>
+                            <input type="text" name="image_uri_position_Y" id="image_uri_position_Y_1">
+                            <p>Width</p>
+                            <input type="text" name="image_uri_position_width" id="image_uri_position_width_1">
+                            <p>Height</p>
+                            <input type="text" name="image_uri_position_height" id="image_uri_position_height_1">
+                        </div>
+                        <div class='img_uri_position2' id='img_uri_position2'>
+                            <br></br>
+                            <p>連結一</p><input type="text" name="image_uri_position_link"
+                                id="image_uri_position_link_2_1">
+                            <p>X</p>
+                            <input type="text" name="image_uri_position_X" id="image_uri_position_X_2_1">
+                            <p>Y</p>
+                            <input type="text" name="image_uri_position_Y" id="image_uri_position_Y_2_1">
+                            <p>Width</p>
+                            <input type="text" name="image_uri_position_width" id="image_uri_position_width_2_1">
+                            <p>Height</p>
+                            <input type="text" name="image_uri_position_height" id="image_uri_position_height_2_1">
+
+                            <br></br>
+                            <p>連結二</p><input type="text" name="image_uri_position_link"
+                                id="image_uri_position_link_2_2">
+                            <p>X</p>
+                            <input type="text" name="image_uri_position_X" id="image_uri_position_X_2_2">
+                            <p>Y</p>
+                            <input type="text" name="image_uri_position_Y" id="image_uri_position_Y_2_2">
+                            <p>Width</p>
+                            <input type="text" name="image_uri_position_width" id="image_uri_position_width_2_2">
+                            <p>Height</p>
+                            <input type="text" name="image_uri_position_height" id="image_uri_position_height_2_2">
+                        </div>
+                        <div class='img_uri_position3' id='img_uri_position3'>
+                            <br></br>
+                            <p>連結一</p><input type="text" name="image_uri_position_link"
+                                id="image_uri_position_link_3_1">
+                            <p>X</p>
+                            <input type="text" name="image_uri_position_X" id="image_uri_position_X_3_1">
+                            <p>Y</p>
+                            <input type="text" name="image_uri_position_Y" id="image_uri_position_Y_3_1">
+                            <p>Width</p>
+                            <input type="text" name="image_uri_position_width" id="image_uri_position_width_3_1">
+                            <p>Height</p>
+                            <input type="text" name="image_uri_position_height" id="image_uri_position_height_3_1">
+
+                            <br></br>
+                            <p>連結二</p><input type="text" name="image_uri_position_link"
+                                id="image_uri_position_link_3_2">
+                            <p>X</p>
+                            <input type="text" name="image_uri_position_X" id="image_uri_position_X_3_2">
+                            <p>Y</p>
+                            <input type="text" name="image_uri_position_Y" id="image_uri_position_Y_3_2">
+                            <p>Width</p>
+                            <input type="text" name="image_uri_position_width" id="image_uri_position_width_3_2">
+                            <p>Height</p>
+                            <input type="text" name="image_uri_position_height" id="image_uri_position_height_3_2">
+
+                            <br></br>
+                            <p>連結三</p><input type="text" name="image_uri_position_link"
+                                id="image_uri_position_link_3_3">
+                            <p>X</p>
+                            <input type="text" name="image_uri_position_X" id="image_uri_position_X_3_3">
+                            <p>Y</p>
+                            <input type="text" name="image_uri_position_Y" id="image_uri_position_Y_3_3">
+                            <p>Width</p>
+                            <input type="text" name="image_uri_position_width" id="image_uri_position_width_3_3">
+                            <p>Height</p>
+                            <input type="text" name="image_uri_position_height" id="image_uri_position_height_3_3">
+
+                        </div>
+                    </div>
+                    <div class="feedback_section" id='feedback_section' name='feedback_section'>
+                        <!-- 回饋按鈕 -->
+                        <img src="https://i.imgur.com/LqZmYaG.jpg" width=50%>
+                        <br></br>
+                        <input type="radio" name="select_feedback_type" value="feedback_yes" id="feedback_yes">增加按鈕
+                        <input type="radio" name="select_feedback_type" value="feedback_no" id="feedback_no">不要按鈕(預設)
+                    </div>
+                </div>
+
+            </div>
+            <div class="submit-section">
+                <button id='schedule' type="button" name='schedule' value="加入排程">加入排程</button>
+            </div>
+            <br></br>
+            <div class="time_section" id='time_section' name='time_section'>
+                <!-- <div>
+                    <span> 設定日期及時間 </span>
+                </div> -->
+                <div class="DateSelectBox">
+                    <input id="date" type="date">
+                </div>
+                <!-- <div class="date">
+                            <input type="text" name="sendDate" placeholder="YYYY-MM-DD" ng-model="date">
+                        </div> -->
+                <div class="DateSelectBox">
+                    <div class="hour" selectlabel="hour"></div>
+                    <select class="DateSelectBox" name="sendHour" id="hour">
+                        <option value="00" selected="">0</option>
+                        <option value="01">1</option>
+                        <option value="02">2</option>
+                        <option value="03">3</option>
+                        <option value="04">4</option>
+                        <option value="05">5</option>
+                        <option value="06">6</option>
+                        <option value="07">7</option>
+                        <option value="08">8</option>
+                        <option value="09">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                    </select>點
+
+                </div>
+                <div class="DateSelectBox">
+                    <div class="minute" selectlabel="minutes_1"></div>
+                    <select class="mdFRM02Select" name="minutes_1" id="minutes_1">
+                        <option value="0" selected="">0</option>
+
+                        <option value="3">3</option>
+
+                    </select>
+                </div>
+                <div class="DateSelectBox">
+                    <div class="minute" selectlabel="minutes_2"></div>
+                    <select class="mdFRM02Select" name="minutes_2" id="minutes_2">
+                        <option value="0" selected="">0</option>
+
+                    </select>分
+                </div>
+                <button id='schedule_confirm' type="button" name='schedule_confirm' value="確定">確定</button>
+                <button id='schedule_cancel' type="button" name='schedule_cancel' value="取消">取消</button>
+            </div>
+
+            <!-- 新增群組畫面 -->
+            <div id="dialog-form" title="新增群組">
+                <p class="validateTips">＊＊＊所有欄位都要寫喔＊＊＊</p>
+
+                <form>
+                    <fieldset>
+                        <label for="name">群組名稱</label>
+                        <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+                        </br>
+                        <label for="test">成員名單</label>
+                        <div>
+                            <input id="myInput_group" type="text" placeholder="Search..">
+                        </div>
+                        <div class="container_group" id="add_member"></div>
+
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- 排程列表 -->
+            <div id="schedule_list" title="排程列表">
+
+                <form>
+                    <fieldset>
+                        <table id="schedule_list_table">
+                            <tr id="schedule_head">
+                                <th id="schedule_time" name="schedule_time">排程時間</th>
+                                <th id="schedule_text" name="schedule_text">文字</th>
+                                <th id="schedule_img" name="schedule_img">圖片</th>
+                                <th id="schedule_imagemap" name="schedule_imagemap">圖文選單</th>
+                                <th id="schedule_status" name="schedule_status">名單</th>
+                                <th id="schedule_delete" name="schedule_delete">取消</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- 公司群組名單畫面 -->
+            <div id="bglist_form" title="公司群組名單">
+
+                <form>
+                    <fieldset>
+                        <table id="bglist_form_table">
+                            <tr id="bglist_form_table_head">
+                                <th id="bglist_form_table_bg" name="bglist_bg">分行</th>
+                                <th id="bglist_form_table_title" name="bglist_title">職稱</th>
+                                <th id="bglist_form_table_name" name="bglist_name">姓名</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                        </table>
+
+
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- 自訂群組名單畫面 -->
+            <div id="grouplist_form" title="自訂群組名單">
+
+                <form>
+                    <fieldset>
+                        <table id="grouplist_form_table">
+                            <tr id="grouplist_form_table_head">
+                                <th id="grouplist_form_table_name" name="bglist_bg">群組</th>
+                                <th id="grouplist_form_table_members" name="bglist_title">人員</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
+            <button id="schedule_cancel_btn" type="button">確定取消</button>
+        </div>
+    </div>
+    <!-- <button id="ttttest" type="button">測試</button> -->
+
+</html>
+
+
+<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+<script>
+
+    //測試
+    $('#ttttest').on('click', function () {
+
+        var NowDate = new Date();
+        var Date2 = NowDate.getDate();
+        var h = NowDate.getHours();
+        var m = NowDate.getMinutes();
+        var s = NowDate.getSeconds();
+        var currDate = Date.parse(new Date().toDateString());
+        var date_str = '2019-06-18 22:40:00';
+        var date_str_test = date_str.replace(/-/g, "/");
+
+        console.log(NowDate);
+        console.log(Date2);
+        console.log(h);
+        console.log(m);
+        console.log(s);
+        console.log(currDate);
+        console.log(date_str_test);
+        if (Date.parse(NowDate).valueOf() > Date.parse(date_str_test).valueOf()) {
+            alert("注意開始時間不能晚於結束時間！");
+            return false;
+        }
+
+        // alert('location.host: ' + location.protocol);
+    });
+
+    var get_token = sessionStorage.getItem('access_token');
+
+    //點選立即傳送頁面
+    $('#set_message').on('click', function () {
+        document.location.href = location.protocol + "//" + location.host + "/console"
+    });
+
+    //點選排程頁面
+    $('#set_schedule').on('click', function () {
+        document.location.href = location.protocol + "//" + location.host + "/schedule"
+    });
+
+    //取得網址參數
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    //取得網址參數
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    var token = 'Bearer ' + get_token;
+    var token2 = get_token;
+    if (token2 == undefined) {
+        alert('請登入!');
+        document.location.href = 'https://sso.ls-ecommerce.com.tw/auth?client_id=bot_backstage&redirect_uri=https://bot-backstage.jane.app/sso&response_type=code&scope=openid';
+        var token_auth = "";
+    } else {
+        var token_auth = token2;
+    }
+
+    //取得使用者身份
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/role/bot_backstage",
+            type: "GET",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token);
+            },
+            success: function (response) {
+                $("#login-user").append(response.name)
+                if (response.name == undefined) {
+                    alert('請登入!');
+                    document.location.href = 'https://sso.ls-ecommerce.com.tw/auth?client_id=bot_backstage&redirect_uri=https://bot-backstage.jane.app/sso&response_type=code&scope=openid';
+                }
+            },
+            error: function (response) {
+                alert('請登入!');
+                document.location.href = 'https://sso.ls-ecommerce.com.tw/auth?client_id=bot_backstage&redirect_uri=https://bot-backstage.jane.app/sso&response_type=code&scope=openid';
+            }
+        });
+    })
+
+    //圖片多選
+    var abc = 0;      // Declaring and defining global increment variable.
+    $(document).ready(function () {
+        //  To add new input file field dynamically, on click of "Add More Files" button below function will be executed.
+        $('#add_more').click(function () {
+            $(this).before($("<div/>", {
+                id: 'filediv'
+            }).fadeIn('slow').append($("<input/>", {
+                name: 'file[]',
+                type: 'file',
+                id: 'file'
+            }), $("<br/><br/>")));
+        });
+        // Following function will executes on change event of file input to select different file.
+        $('body').on('change', '#file', function () {
+            var file_size = this.files[0].size;
+            if (this.files && this.files[0]) {
+                abc += 1; // Incrementing global variable by 1.
+                var z = abc - 1;
+                var x = $(this).parent().find('#previewimg' + z).remove();
+                $(this).before("<div id='abcd" + abc + "' class='abcd'><img width=200 class ='upload_img[]' id='previewimg" + abc + "' src=''/></div>");
+
+                if (file_size >= 1000000) { //1MB
+                    alert('這張太大囉！重新再來一次吧！');
+                    location.reload();
+                }
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+                $(this).hide();
+                $("#abcd" + abc).append($("<img/>", {
+                    id: 'img',
+                    src: 'https://i.imgur.com/tQ41QGb.png',
+                    alt: 'delete',
+                    height: '20px'
+                }).click(function () {
+                    $(this).parent().parent().remove();
+                }));
+            }
+        });
+        // To Preview Image
+        function imageIsLoaded(e) {
+            $('#previewimg' + abc).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型一
+    var abc2 = 'img_uri_type1_1';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type1', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd2" + abc2 + "' class='abcd2'><img width=200 class ='upload_img[]' id='previewimg2" + abc2 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        function imageIsLoaded(e) {
+            $('#previewimg2' + abc2).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型二
+    var abc3 = 'img_uri_type1_2';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type2', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd3" + abc3 + "' class='abcd3'><img width=200 class ='upload_img[]' id='previewimg3" + abc3 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg3' + abc3).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型三
+    var abc4 = 'img_uri_type1_3';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type3', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd4" + abc4 + "' class='abcd4'><img width=200 class ='upload_img[]' id='previewimg4" + abc4 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg4' + abc4).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型四
+    var abc5 = 'img_uri_type1_4';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type4', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd5" + abc5 + "' class='abcd5'><img width=200 class ='upload_img[]' id='previewimg5" + abc5 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg5' + abc5).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型五
+    var abc6 = 'img_uri_type1_5';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type5', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd6" + abc6 + "' class='abcd6'><img width=200 class ='upload_img[]' id='previewimg6" + abc6 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg6' + abc6).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型六
+    var abc7 = 'img_uri_type1_6';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type6', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd7" + abc7 + "' class='abcd7'><img width=200 class ='upload_img[]' id='previewimg7" + abc7 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg7' + abc7).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型七
+    var abc8 = 'img_uri_type1_7';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type7', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd8" + abc8 + "' class='abcd8'><img width=200 class ='upload_img[]' id='previewimg8" + abc8 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg8' + abc8).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_基本圖文選單_版型八
+    var abc9 = 'img_uri_type1_8';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type8', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd9" + abc9 + "' class='abcd9'><img width=200 class ='upload_img[]' id='previewimg9" + abc9 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg9' + abc9).attr('src', e.target.result);
+        };
+    });
+    //圖片加連結_基本圖文選單_版型九
+    var abc10 = 'img_uri_type1_9';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_type9', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd10" + abc10 + "' class='abcd10'><img width=200 class ='upload_img[]' id='previewimg10" + abc10 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg10' + abc10).attr('src', e.target.result);
+        };
+    });
+
+    //圖片加連結_進階圖文選單
+    var abc11 = 'img_uri_type2';
+    $(document).ready(function () {
+        $('body').on('change', '#image_appearance_uri_imagemap', function () {
+            if (this.files && this.files[0]) {
+                $(this).before("<div id='abcd11" + abc11 + "' class='abcd11'><img width=200 class ='upload_img[]' id='previewimg11" + abc11 + "' src=''/></div>");
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        function imageIsLoaded(e) {
+            $('#previewimg11' + abc11).attr('src', e.target.result);
+        };
+    });
+
+    //分行全選
+    $(document).ready(function () {
+        $("#bg_all").click(function () {
+            if ($("#bg_all").prop("checked")) {
+                $("input[name='bg_group[]']").each(function () {
+                    $(this).prop("checked", true);
+                })
+            } else {
+                $("input[name='bg_group[]']").each(function () {
+                    $(this).prop("checked", false);
+                })
+            }
+        })
+    })
+
+    //職稱全選
+    $(document).ready(function () {
+        $("#title_all").click(function () {
+            if ($("#title_all").prop("checked")) {
+                $("input[name='title_group[]']").each(function () {
+                    $(this).prop("checked", true);
+                })
+            } else {
+                $("input[name='title_group[]']").each(function () {
+                    $(this).prop("checked", false);
+                })
+            }
+        })
+    })
+
+
+    document.getElementById("select_all").addEventListener('click', function () {
+        s_all.style.display = "none";
+        receivers.style.display = "none";
+        s_group.style.display = "none";
+        s_bg_group.style.display = "none";
+    })
+    document.getElementById("select_group").addEventListener('click', function () {
+        s_all.style.display = "none";
+        receivers.style.display = "none";
+        s_group.style.display = "block";
+        s_bg_group.style.display = "none";
+    })
+    document.getElementById("bg_group").addEventListener('click', function () {
+        s_all.style.display = "none";
+        receivers.style.display = "none";
+        s_group.style.display = "none";
+        s_bg_group.style.display = "block";
+    })
+    document.getElementById("select_ind").addEventListener('click', function () {
+        s_all.style.display = "none";
+        receivers.style.display = "block";
+        s_group.style.display = "none";
+        s_bg_group.style.display = "none";
+    })
+    //傳送訊息-文字
+    document.getElementById("send-text").addEventListener('click', function () {
+        text_section.style.display = "block";
+        image_section.style.display = "none";
+        image_uri_section.style.display = "none";
+        image_uri_imagemap_section.style.display = "none";
+        feedback_section.style.display = "none";
+    })
+    //傳送訊息-圖片
+    document.getElementById("send-img").addEventListener('click', function () {
+        text_section.style.display = "none";
+        image_section.style.display = "block";
+        image_uri_section.style.display = "none";
+        image_uri_imagemap_section.style.display = "none";
+        feedback_section.style.display = "none";
+    })
+    //傳送訊息-圖文選單1
+    document.getElementById("send-img-uri_flex").addEventListener('click', function () {
+        text_section.style.display = "none";
+        image_section.style.display = "none";
+        image_uri_section.style.display = "block";
+        image_uri_imagemap_section.style.display = "none";
+        feedback_section.style.display = "none";
+    })
+    //傳送訊息-圖文選單2
+    document.getElementById("send-img-uri_imagemap").addEventListener('click', function () {
+        text_section.style.display = "none";
+        image_section.style.display = "none";
+        image_uri_section.style.display = "none";
+        image_uri_imagemap_section.style.display = "block";
+        feedback_section.style.display = "none";
+    })
+
+    //傳送訊息-回饋按鈕
+    document.getElementById("feedback").addEventListener('click', function () {
+        text_section.style.display = "none";
+        image_section.style.display = "none";
+        image_uri_section.style.display = "none";
+        image_uri_imagemap_section.style.display = "none";
+        feedback_section.style.display = "block";
+    })
+
+    //版型一
+    document.getElementById("img_uri_type1").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'block');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型二
+    document.getElementById("img_uri_type2").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'block');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型三
+    document.getElementById("img_uri_type3").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'block');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型四
+    document.getElementById("img_uri_type4").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'block');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型五
+    document.getElementById("img_uri_type5").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'block');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型六
+    document.getElementById("img_uri_type6").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'block');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型七
+    document.getElementById("img_uri_type7").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'block');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型八
+    document.getElementById("img_uri_type8").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'block');
+        $('.image_uri_type9').css('display', 'none');
+    })
+    //版型九
+    document.getElementById("img_uri_type9").addEventListener('click', function () {
+        $('.image_uri_type1').css('display', 'none');
+        $('.image_uri_type2').css('display', 'none');
+        $('.image_uri_type3').css('display', 'none');
+        $('.image_uri_type4').css('display', 'none');
+        $('.image_uri_type5').css('display', 'none');
+        $('.image_uri_type6').css('display', 'none');
+        $('.image_uri_type7').css('display', 'none');
+        $('.image_uri_type8').css('display', 'none');
+        $('.image_uri_type9').css('display', 'block');
+    })
+
+    //一個連結
+    document.getElementById("img_uri_position1").addEventListener('click', function () {
+        $('.img_uri_position1').css('display', 'block');
+        $('.img_uri_position2').css('display', 'none');
+        $('.img_uri_position3').css('display', 'none');
+    })
+    //二個連結
+    document.getElementById("img_uri_position2").addEventListener('click', function () {
+        $('.img_uri_position1').css('display', 'none');
+        $('.img_uri_position2').css('display', 'block');
+        $('.img_uri_position3').css('display', 'none');
+    })
+    //三個連結
+    document.getElementById("img_uri_position3").addEventListener('click', function () {
+        $('.img_uri_position1').css('display', 'none');
+        $('.img_uri_position2').css('display', 'none');
+        $('.img_uri_position3').css('display', 'block');
+    })
+    document.getElementById("schedule").addEventListener('click', function () {
+        time_section.style.display = "flex";
+    })
+    document.getElementById("schedule_cancel").addEventListener('click', function () {
+        time_section.style.display = "none";
+    })
+
+    //排程設定
+    $('#schedule_confirm').on('click', function () {
+        //全選
+        if ($('input[name=select]:checked').val() == 'select_all') {
+            var GroupID = 'select-all';
+            var check = 'select-all';
+            var schedule_name = ['全部的人'];
+            var type = 'select_all';
+        }
+        //公司群組 
+        if ($('input[name=select]:checked').val() == 'bg_group') {
+            var bg_name = $("input[name='bg_group[]']:checked").map(
+                function () { return this.value; }).get();
+            var title_group = $("input[name='title_group[]']:checked").map(
+                function () { return this.value; }).get();
+            var schedule_name_pre = $("input[name='bg_group[]']:checked").map(
+                function () { return this.value; }).get();
+            var schedule_name = schedule_name_pre.concat(title_group);
+            // var schedule_name = '分行：' + bg_name + '\n職稱：' + title_group;
+            var title = 'title';
+            var type = 'bg_title';
+        }
+        //自訂群組
+        if ($('input[name=select]:checked').val() == 'select_group') {
+            var schedule_name = $("input[name='singleID_group[]']:checked").map(
+                function () { return this.id; }).get();
+            var type = 'customized_group';
+        }
+        //個人
+        if ($('input[name=select]:checked').val() == 'select_ind') {
+            var GroupID = $("input[name='singleID[]']:checked").map(
+                function () { return this.value; }).get();
+            var schedule_name = $("input[name='singleID[]']:checked").map(
+                function () { return this.id; }).get();
+            var type = 'ind';
+        }
+
+        //時間
+        var date = document.getElementById('date').value;
+        var hour = document.getElementById('hour').value;
+        var minutes1 = document.getElementById('minutes_1').value;
+        var minutes2 = document.getElementById('minutes_2').value;
+        if (date && hour && minutes1 && minutes2) {
+            Time = date.concat(" ", hour, ":", minutes1, minutes2, ":00");
+        } else {
+            Time = null;
+        }
+
+        //圖片
+        var img_mulitiple = [];
+        for (i = 1; i < 10; i++) {
+            var img_sss = $("#abcd" + i + ">img").attr('src');
+            img_mulitiple.push($("#abcd" + i + ">img").attr('src'));
+        }
+
+        //圖片加連結
+        if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type1') {
+            var img_uri_value = "img_uri_type1";
+            var img_uri_img = $("#image_appearance_uri_type1").val();
+            var img_uri_uri = $("#image_info_uri_type1").val();
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type2') {
+            var img_uri_value = "img_uri_type2";
+            var img_uri_img = ""
+            var img_uri_uri = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type3') {
+            var img_uri_value = "img_uri_type3";
+            var img_uri_img = ""
+            var img_uri_uri = ""
+        }
+
+        //圖文選單1
+        if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type1') {
+            var type_img_uri = 'img_uri_type1';
+            var img_uri_img = $("#previewimg2img_uri_type1_1").attr('src');
+            var img_uri_uri = $("#image_info_uri_type1").val();
+            var img_uri_img_type = $('input[name=select_img_type]:checked').val();
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type2') {
+            var type_img_uri = 'img_uri_type2';
+            var img_uri_img = $("#previewimg3img_uri_type1_2").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type2_upper").val(), $("#image_info_uri_type2_lower").val()];
+            var img_uri_img_type = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type3') {
+            var type_img_uri = 'img_uri_type3';
+            var img_uri_img = $("#previewimg4img_uri_type1_3").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type3_upper").val(), $("#image_info_uri_type3_lower_left").val(), $("#image_info_uri_type3_lower_right").val()];
+            var img_uri_img_type = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type4') {
+            var type_img_uri = 'img_uri_type4';
+            var img_uri_img = $("#previewimg5img_uri_type1_4").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type4_upper_left").val(), $("#image_info_uri_type4_upper_right").val(), $("#image_info_uri_type4_lower_left").val(), $("#image_info_uri_type4_lower_right").val()];
+            var img_uri_img_type = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type5') {
+            var type_img_uri = 'img_uri_type5';
+            var img_uri_img = $("#previewimg6img_uri_type1_5").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type5_left").val(), $("#image_info_uri_type5_right").val()];
+            var img_uri_img_type = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type6') {
+            var type_img_uri = 'img_uri_type6';
+            var img_uri_img = $("#previewimg7img_uri_type1_6").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type6_1").val(), $("#image_info_uri_type6_2").val(), $("#image_info_uri_type6_3").val()];
+            var img_uri_img_type = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type7') {
+            var type_img_uri = 'img_uri_type7';
+            var img_uri_img = $("#previewimg8img_uri_type1_7").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type7_1").val()];
+            var img_uri_img_type = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type8') {
+            var type_img_uri = 'img_uri_type8';
+            var img_uri_img = $("#previewimg9img_uri_type1_8").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type8_1").val(), $("#image_info_uri_type8_2").val(), $("#image_info_uri_type8_3").val(), $("#image_info_uri_type8_4").val(), $("#image_info_uri_type8_5").val(), $("#image_info_uri_type8_6").val()]
+            var img_uri_img_type = "";
+        } if ($('input[name=select_img_uri_types]:checked').val() == 'img_uri_type9') {
+            var type_img_uri = 'img_uri_type9';
+            var img_uri_img = $("#previewimg10img_uri_type1_9").attr('src');
+            var img_uri_uri = [$("#image_info_uri_type9_1").val(), $("#image_info_uri_type9_2").val(), $("#image_info_uri_type9_3").val()];
+            var img_uri_img_type = "";
+        }
+
+        //圖文選單2
+        if ($('input[name=select_img_uri_positions]:checked').val() == 'img_uri_position1') {
+            var type_img_uri = 'img_uri_imagemap';
+            var img_uri_img = $("#previewimg11img_uri_type2").attr('src');
+            var img_uri_uri = [$("#image_uri_position_link_1").val()];
+            var img_uri_position = [
+                [
+                    $("#image_uri_position_X_1").val(),
+                    $("#image_uri_position_Y_1").val(),
+                    $("#image_uri_position_width_1").val(),
+                    $("#image_uri_position_height_1").val()
+                ]
+            ];
+        } if ($('input[name=select_img_uri_positions]:checked').val() == 'img_uri_position2') {
+            var type_img_uri = 'img_uri_imagemap';
+            var img_uri_img = $("#previewimg11img_uri_type2").attr('src');
+            var img_uri_uri = [
+                $("#image_uri_position_link_2_1").val(),
+                $("#image_uri_position_link_2_2").val()
+            ];
+            var img_uri_position = [
+                [
+                    $("#image_uri_position_X_2_1").val(),
+                    $("#image_uri_position_Y_2_1").val(),
+                    $("#image_uri_position_width_2_1").val(),
+                    $("#image_uri_position_height_2_2").val()
+                ],
+                [
+                    $("#image_uri_position_X_2_2").val(),
+                    $("#image_uri_position_Y_2_2").val(),
+                    $("#image_uri_position_width_2_2").val(),
+                    $("#image_uri_position_height_2_2").val()
+                ],
+            ];
+        } if ($('input[name=select_img_uri_positions]:checked').val() == 'img_uri_position3') {
+            var type_img_uri = 'img_uri_imagemap';
+            var img_uri_img = $("#previewimg11img_uri_type2").attr('src');
+            var img_uri_uri = [
+                $("#image_uri_position_link_3_1").val(),
+                $("#image_uri_position_link_3_2").val(),
+                $("#image_uri_position_link_3_3").val()
+            ];
+            var img_uri_position = [
+                [
+                    $("#image_uri_position_X_3_1").val(),
+                    $("#image_uri_position_Y_3_1").val(),
+                    $("#image_uri_position_width_3_1").val(),
+                    $("#image_uri_position_height_3_2").val()
+                ],
+                [
+                    $("#image_uri_position_X_3_2").val(),
+                    $("#image_uri_position_Y_3_2").val(),
+                    $("#image_uri_position_width_3_2").val(),
+                    $("#image_uri_position_height_3_2").val()
+                ],
+                [
+                    $("#image_uri_position_X_3_3").val(),
+                    $("#image_uri_position_Y_3_3").val(),
+                    $("#image_uri_position_width_3_3").val(),
+                    $("#image_uri_position_height_3_3").val()
+                ],
+            ];
+        }
+
+        //回饋按鈕
+        if ($('input[name=select_feedback_type]:checked').val() == 'feedback_yes') {
+            var feedback = 'feedback_yes';
+        }
+
+        //設定者
+        var created_by = $("#login-user").text();
+
+        //判斷排程日期有無在現在之後
+        var NowDate = new Date();
+        if (Date.parse(NowDate).valueOf() > Date.parse(Time).valueOf()) {
+            alert("恩？設定的時間已經過囉！");
+            return false;
+        } if ($("#content").val().length == 0
+            && img_mulitiple[0] == null
+            && img_uri_img == null || undefined) {
+            alert("請選擇要傳送的訊息！");
+            return false;
+        } if (schedule_name.length == 0) {
+            alert("請選收件者！");
+            return false;
+        } else {
+            $.ajax({
+                url: location.protocol + "//" + location.host + "/api/notify/schedule",
+                method: "Post",
+                dataType: "json",
+                data: {
+                    ID: GroupID,
+                    bg: bg_name,
+                    title: title_group,
+                    content: $("#content").val(),
+                    image: img_mulitiple,
+                    check: check,
+                    time: Time,
+                    schedule_name: schedule_name,
+                    type: type,
+                    type_img_uri: type_img_uri,
+                    img_uri_img: img_uri_img,
+                    img_uri_uri: img_uri_uri,
+                    img_uri_img_type: img_uri_img_type,
+                    img_uri_position: img_uri_position,
+                    feedback: feedback,
+                    created_by: created_by
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", token_auth);
+                },
+                complete: function (response) {
+                    if (response.status == '200') {
+                        alert("很棒！設定完成囉");
+                        location.reload();
+                    }
+                    if (response.status == '413') {
+                        alert("檔案過大，請選小一點的檔案，謝謝");
+                    }
+                }
+            });
+        }
+    });
+
+    //群組名單--公司分行群組
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/member_bg/list",
+            type: "Get",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var title = response[i].bg_name;
+                    $("#s_bg_group_list").append("<div><label><input type = 'checkbox' name = 'bg_group[]' class='chk' id='" + title + "'" + " value = " + title + " ><span>" + title + "</span></label></div>");
+                }
+            }
+        });
+    })
+
+    //群組名單--公司職稱群組
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/member_title/list",
+            type: "Get",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var title = response[i].title;
+                    $("#s_title_list").append("<div><label><input type = 'checkbox' name = 'title_group[]' class='chk' id='" + title + "'" + " value = " + title + " ><span>" + title + "</span></label></div>");
+                }
+            }
+        });
+    })
+
+    //群組名單--自訂群組
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/line_group/list",
+            type: "Get",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var user_name = response[i].group_name;
+                    var line_user_id = response[i].user_id;
+                    var group_number = response[i].group_number;
+                    $("#s_group_list").append("<div ><label><input type = 'checkbox' name = 'singleID_group[]' class='" + group_number + "' id='" + user_name + "'" + " value = " + user_name + " ><span>" + user_name + " </span><p style='color:rgb(170, 172, 171);font-size:5px' ;>(" + group_number + "人)</p></label></div>");
+                }
+            }
+        });
+    })
+
+    //container＿個人
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/line_group/member",
+            type: "Get",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var user_name = response[i].name;
+                    var line_user_id = response[i].line_user_id;
+                    var account = response[i].account.substr(7);
+                    var bg_name = response[i].bg_name;
+                    if (response[i].line_user_id != null) {
+                        $("#receivers_ind").append("<label class= 'receivers_ind'><input type = 'checkbox' name = 'singleID[]' id='" + user_name + "'" + " value = " + line_user_id + " ><span>" + bg_name + "/" + user_name + "(" + account + ")</span></label>");
+                    }
+                }
+            }
+        });
+    });
+
+    //搜尋_個人
+    $(document).ready(function () {
+        $("#myInput").keyup(function () {
+            var re = new RegExp($(this).val(), "i")
+            $('.receivers_ind').each(function () {
+                var text = $(this).text(),
+                    matches = !!text.match(re);
+                $(this).toggle(matches)
+            })
+        });
+    });
+
+    //container＿群組
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/line_group/member",
+            type: "Get",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var user_name = response[i].name;
+                    var line_user_id = response[i].line_user_id;
+                    var account = response[i].account.substr(7);
+                    var bg_name = response[i].bg_name;
+                    if (response[i].line_user_id != null) {
+                        $("#add_member").append("<label class= 'add_member'><input type = 'checkbox' name = 'singleID_group[]' class='" + user_name + "' id='" + user_name + "'" + " value = " + line_user_id + " ><span><span>" + bg_name + "/" + user_name + "(" + account + ")</span></label>");
+                    }
+                }
+            }
+        });
+    });
+
+    //搜尋_群組
+    $(document).ready(function () {
+        $("#myInput_group").keyup(function () {
+            var re = new RegExp($(this).val(), "i")
+            $('.add_member').each(function () {
+                var text = $(this).text(),
+                    matches = !!text.match(re);
+                $(this).toggle(matches)
+            })
+        });
+    });
+
+    //公司群組名單
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/schedule/members",
+            type: "Get",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var bg = response[i].bg_name;
+                    var title = response[i].title;
+                    var name = response[i].name;
+                    $("#bglist_form_table").append("<tr><td>" + bg + "</td><td>" + title + "</td><td>" + name + "</td><tr>");
+                }
+            }
+        });
+    })
+
+    //排程名單
+    $(document).ready(function () {
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/schedule",
+            type: "Get",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var schedule_time = response[i].schedule_time;
+                    var text = response[i].text;
+                    var img_name = response[i].img_name;
+                    var imagemap = response[i].imagemap_name;
+                    var schedule_name = response[i].schedule_name;
+                    var id = response[i].id;
+                    $("#schedule_list_table").append("<tr><td>" + schedule_time + "</td><td>" + text + "</td><td>" + img_name + "</td><td>" + imagemap + "</td><td>" + schedule_name + "</td><td>" + "<input type = 'checkbox' name = 'cancel_schedule_btn[]' id='" + id + "' >取消</td><tr>");
+                }
+            }
+        });
+    })
+
+    //新增群組
+    $(function () {
+        var name = $("#name"),
+            email = $("#email"),
+            allFields = $([]).add(name).add(email),
+            tips = $(".validateTips");
+
+        $("#dialog-form").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 1000,
+            modal: true,
+            buttons: {
+                "新增": function () {
+                    var bValid = true;
+                    var name = $("#name").val();
+                    var GroupID_group = $("input[name='singleID_group[]']:checked").map(
+                        function () { return this.value; }).get();
+
+                    if (bValid) {
+                        $.ajax({
+                            url: location.protocol + "//" + location.host + "/api/line_group",
+                            method: "Post",
+                            dataType: "application/json",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Authorization", token_auth);
+                            },
+                            data:
+                            {
+                                'name': name,
+                                'user_ID': GroupID_group
+                            },
+                        });
+                        $("#s_group_list").append("<div><label><input type = 'checkbox' name = 'singleID[]_group' class='chk' id='" + name + "'" + " value = " + GroupID_group + " ><span>" + name + "</span></label></div>");
+                        $("input[name='singleID_group[]']:checked").each(function () {
+                            $(this).prop('checked', false);
+                        });
+                        alert("新增成功");
+                        $(this).dialog("close");
+
+                    }
+
+                },
+                "取消": function () {
+                    $("input[name='singleID_group[]']:checked").each(function () {
+                        $(this).prop('checked', false);
+                    });
+                    $(this).dialog("close");
+                }
+            },
+        });
+
+        $("#create-group")
+            .click(function () {
+                $("#dialog-form").dialog("open");
+            });
+    });
+
+
+    //刪除群組
+    $('#delete').on('click', function () {
+        var GroupName_group_delete = $("input[name='singleID_group[]']:checked").map(
+            function () { return this.id; }).get();
+
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/line_group/delete",
+            method: "Post",
+            dataType: "application/json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            data:
+            {
+                'GroupName': GroupName_group_delete
+            }
+        });
+        if (GroupName_group_delete.length == 0) {
+            alert("刪除失敗");
+            console.log(GroupName_group_delete);
+        } else {
+            alert("刪除成功");
+            location.reload();
+        }
+    })
+
+    //公司群組名單
+    $(function () {
+        $("#bglist_form").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 600,
+            modal: true,
+            buttons: {
+                "關閉": function () {
+                    $(this).dialog("close");
+                }
+            },
+        });
+
+        $("#bglist")
+            .click(function () {
+                $("#bglist_form").dialog("open");
+            });
+    });
+
+
+    //自訂群組名單
+    $(function () {
+        $("#grouplist_form").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 600,
+            modal: true,
+            buttons: {
+                "關閉": function () {
+                    $(this).dialog("close");
+                }
+            },
+        });
+
+        $("#grouplist")
+            .click(function () {
+                $("#grouplist_form").dialog("open");
+                $.ajax({
+                    url: location.protocol + "//" + location.host + "/api/line_group/list",
+                    type: "Get",
+                    contentType: 'application/json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", token_auth);
+                    },
+                    success: function (response) {
+                        for (var i = 0; i < response.length; i++) {
+                            var GroupName = response[i].group_name;
+                            var user_name = response[i].user_name;
+                            $("#grouplist_form_table").append("<tr><td>" + GroupName + "</td><td>" + user_name + "</td><tr>");
+                        }
+                    }
+                });
+            });
+    });
+
+    //刪除排程
+    $('#schedule_cancel_btn').on('click', function () {
+        var schedule_id = $("input[name='cancel_schedule_btn[]']:checked").map(
+            function () { return this.id; }).get();
+
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/schedule/delete",
+            method: "Post",
+            dataType: "application/json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token_auth);
+            },
+            data:
+            {
+                'schedule_id': schedule_id
+            },
+            complete: function (response) {
+                alert('刪除成功！');
+                location.reload();
+            }
+        });
+    });
+
+</script>

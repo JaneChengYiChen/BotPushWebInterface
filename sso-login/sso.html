@@ -1,0 +1,70 @@
+<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+
+    //取得網址參數
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    var code = getUrlVars()["code"];
+
+    function get_token() {
+        return $.ajax({
+            url: location.protocol + "//" + location.host + "/authorized/token",
+            method: "Post",
+            async: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            },
+            data: {
+                grant_type: 'authorization_code',
+                code: code,
+                redirect_uri: 'https://bot-backstage.jane.app/sso',
+                client_id: 'bot_backstage'
+            },
+
+            error: function (response) {
+                alert('你不是合法的使用者！');
+                window.location.href = "https://sso.ls-ecommerce.com.tw/auth?client_id=bot_backstage&redirect_uri=https://bot-backstage.jane.app/sso&response_type=code&scope=openid";
+            }
+        })
+    }
+
+
+    var promise = get_token();
+    promise.success(function (response) {
+        var res = JSON.stringify(response);
+        var access_token = JSON.parse(res).access_token;
+        var token = 'Bearer ' + access_token;
+        $.ajax({
+            url: location.protocol + "//" + location.host + "/api/role/bot_backstage",
+            type: "GET",
+            contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", token);
+            },
+            success: function (response) {
+                if (response.name == undefined) {
+                    alert('請登入!');
+                    document.location.href = 'https://sso.ls-ecommerce.com.tw/auth?client_id=bot_backstage&redirect_uri=https://bot-backstage.jane.app/sso&response_type=code&scope=openid';
+                }
+                sessionStorage.setItem("access_token", access_token);
+                window.location.href = location.protocol + "//" + location.host + "/console";
+            },
+            error: function (response) {
+                alert('你不是合法的使用者喔!');
+                console.log(response);
+                document.location.href = 'https://sso.ls-ecommerce.com.tw/auth?client_id=bot_backstage&redirect_uri=https://bot-backstage.jane.app/sso&response_type=code&scope=openid';
+            }
+        });
+    });
+
+</script>

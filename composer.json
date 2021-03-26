@@ -1,0 +1,26 @@
+{
+  "name": "jane/bot_push_interface",
+  "description": "",
+  "authors": [
+    {
+      "name": "jane",
+      "email": "freedomerest@gmail.com"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "./lib/initial.php"
+    ]
+  },
+  "require": {
+    "slim/slim": "^3.0",
+    "catfan/medoo": "^1.6",
+    "symfony/yaml": "^4.2",
+    "ramsey/uuid": "^3.8",
+    "phpmailer/phpmailer": "^6.0",
+    "cosenary/simple-php-cache": "dev-master#39607c9307b32248bae2fd6a945183c7249156da",
+    "linecorp/line-bot-sdk": "^3.6",
+    "monolog/monolog": "^1.24",
+    "guzzlehttp/guzzle": "^6.3"
+  }
+}
